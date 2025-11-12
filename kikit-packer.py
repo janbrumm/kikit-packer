@@ -50,8 +50,14 @@ class Plugin(LayoutPlugin):
 
         import yaml
         with open(input_yaml, 'r') as file:
-            input_boards = yaml.safe_load(file)
+            yaml_data = yaml.safe_load(file)
+
+        input_boards = yaml_data['boards']
         print(input_boards)
+
+        max_width = yaml_data['max_width'] * mm if 'max_width' in yaml_data else None
+        max_height = yaml_data['max_height'] * mm if 'max_height' in yaml_data else None
+        print(f"max_height: {max_height}, max_width: {max_width}")
 
         panel.sourcePaths.add(mainInputFile)
 
@@ -97,7 +103,7 @@ class Plugin(LayoutPlugin):
             boards.extend([board] * count)
             filenames.extend([filename] * count)
 
-        best_rotates, best_positions = optimal_pack(sizes, max_width=None, max_height=None)
+        best_rotates, best_positions = optimal_pack(sizes, max_width=max_width, max_height=max_height)
 
         print(best_rotates, best_positions)
 

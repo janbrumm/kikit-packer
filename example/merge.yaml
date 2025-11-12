@@ -1,3 +1,6 @@
+max_width: 100
+max_height: 1000
+boards:
 - board: main.kicad_pcb
   qty: 1
   margin_mm: 2      # default = 1
